@@ -1,11 +1,24 @@
+require('dotenv').config();
+
 const express = require('express');
-const PORT = process.env.PORT || 3000;
+const workoutRoutes = require('./routes/workouts')
+
+
+// express app
 const app = express();
 
 
-app.use(express.json());
-app.use(express.urlencoded());
+// middleware 
+app.unlock((req, res, next) => {
+    console.log(req.path. req.method)
+    next();
+})
 
-app.listen(PORT, () => {
-    console.log("Backend is running.");
+
+
+// root file API
+app.use('/api/workouts',workoutRoutes)
+// server is running 
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port`, process.env.PORT);
 })
